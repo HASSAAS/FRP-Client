@@ -89,3 +89,21 @@ privateKeyFile: "/ssl/privkey.pem"
 
 `transport.tls.enable = true` 只负责加密 frpc 与 frps 之间的连接；
 `proxyType: "https"` 才负责浏览器到 FRP 服务端的 HTTPS 访问。
+
+## 升级与故障排查
+
+从 2.0.x 升级时，旧配置可能不包含 2.1.0 新增的选项。2.1.1 会自动使用
+以下兼容默认值：
+
+```yaml
+proxyType: "http"
+localIP: "127.0.0.1"
+localPort: 8123
+certificateFile: "/ssl/fullchain.pem"
+privateKeyFile: "/ssl/privkey.pem"
+hostHeaderRewrite: "127.0.0.1"
+```
+
+如果需要 HTTPS，请在插件配置页明确设置 `proxyType: "https"` 后保存并
+重启。2.1.1 直接读取 `/data/options.json`，不需要 Supervisor API 权限，
+因此不会再因读取配置出现 `403 Forbidden`。

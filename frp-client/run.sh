@@ -3,25 +3,68 @@ set -euo pipefail
 
 readonly CONFIG_PATH="${FRPC_CONFIG_PATH:-/tmp/frpc.toml}"
 readonly FRPC_BIN="${FRPC_BIN:-frpc}"
+readonly OPTIONS_PATH="${FRPC_OPTIONS_PATH:-/data/options.json}"
 
 toml_string() {
     jq --compact-output --null-input --arg value "$1" '$value'
 }
 
-server_addr="$(toml_string "$(bashio::config 'serverAddr')")"
-server_port="$(bashio::config 'serverPort')"
-auth_token="$(toml_string "$(bashio::config 'authToken')")"
-web_server_port="$(bashio::config 'webServerPort')"
-web_server_user="$(toml_string "$(bashio::config 'webServerUser')")"
-web_server_password="$(toml_string "$(bashio::config 'webServerPassword')")"
-custom_domain="$(toml_string "$(bashio::config 'customDomain')")"
-proxy_name="$(toml_string "$(bashio::config 'proxyName')")"
-proxy_type="$(bashio::config 'proxyType')"
-local_ip="$(bashio::config 'localIP')"
-local_port="$(bashio::config 'localPort')"
-certificate_file="$(bashio::config 'certificateFile')"
-private_key_file="$(bashio::config 'privateKeyFile')"
-host_header_rewrite="$(bashio::config 'hostHeaderRewrite')"
+config_value() {
+    local key="$1"
+    local default_value="$2"
+
+    jq \
+        --raw-output \
+        --arg key "${key}" \
+        --arg default_value "${default_value}" \
+        'if has($key)
+            and .[$key] != null
+            and ((.[$key] | tostring) | length) > 0
+         then .[$key] | tostring
+         else $default_value
+         end' \
+        "${OPTIONS_PATH}"
+}
+
+required_config() {
+    local key="$1"
+    local value
+
+    value="$(config_value "${key}" "")"
+    if [[ -z "${value}" ]]; then
+        bashio::log.fatal "Required configuration option is missing: ${key}"
+        exit 1
+    fi
+
+    printf '%s' "${value}"
+}
+
+if [[ ! -r "${OPTIONS_PATH}" ]]; then
+    bashio::log.fatal "Configuration file is not readable: ${OPTIONS_PATH}"
+    exit 1
+fi
+
+if ! jq empty "${OPTIONS_PATH}" >/dev/null 2>&1; then
+    bashio::log.fatal "Configuration file is not valid JSON: ${OPTIONS_PATH}"
+    exit 1
+fi
+
+server_addr="$(toml_string "$(required_config 'serverAddr')")"
+server_port="$(required_config 'serverPort')"
+auth_token="$(toml_string "$(required_config 'authToken')")"
+web_server_port="$(required_config 'webServerPort')"
+web_server_user="$(toml_string "$(required_config 'webServerUser')")"
+web_server_password="$(toml_string "$(required_config 'webServerPassword')")"
+custom_domain="$(toml_string "$(required_config 'customDomain')")"
+proxy_name="$(toml_string "$(required_config 'proxyName')")"
+
+# Defaults keep installations upgraded from versions before 2.1.0 working.
+proxy_type="$(config_value 'proxyType' 'http')"
+local_ip="$(config_value 'localIP' '127.0.0.1')"
+local_port="$(config_value 'localPort' '8123')"
+certificate_file="$(config_value 'certificateFile' '/ssl/fullchain.pem')"
+private_key_file="$(config_value 'privateKeyFile' '/ssl/privkey.pem')"
+host_header_rewrite="$(config_value 'hostHeaderRewrite' '127.0.0.1')"
 
 cat > "${CONFIG_PATH}" <<EOF
 serverAddr = ${server_addr}

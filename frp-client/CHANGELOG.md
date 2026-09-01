@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.1
+
+- Read app settings directly from `/data/options.json` instead of requiring
+  access to the Supervisor API.
+- Fix `403 Forbidden` configuration errors on startup.
+- Use HTTP-compatible defaults when upgrading an existing installation that
+  does not yet contain the options introduced in 2.1.0.
+- Keep clear validation errors for missing required settings and HTTPS files.
+
 ## 2.1.0
 
 - Add selectable `http` and `https` proxy modes.

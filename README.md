@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-v2.1.0-blue.svg)](https://github.com/HASSAAS/FRP-Client/tree/v2.1.0)
+[![Version](https://img.shields.io/badge/version-v2.1.1-blue.svg)](https://github.com/HASSAAS/FRP-Client/tree/v2.1.1)
 [![FRP](https://img.shields.io/badge/FRP-v0.71.0-orange.svg)](https://github.com/fatedier/frp/releases/tag/v0.71.0)
 
 # Hass Addon FRP Client

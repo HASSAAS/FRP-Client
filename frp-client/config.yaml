@@ -1,6 +1,6 @@
 name: "FRP Client"
 description: "Expose Home Assistant through FRP with HTTP or HTTPS"
-version: "2.1.0"
+version: "2.1.1"
 slug: "frp_client"
 url: "https://github.com/HASSAAS/FRP-Client"
 host_network: true

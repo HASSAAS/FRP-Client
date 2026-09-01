@@ -2,7 +2,7 @@ name: "FRP Client"
 description: "You can use this tool to achieve remote access to local Home Assistant OS by port forwarding"
 version: "2.0.0"
 slug: "frp_client"
-url: "https://github.com/huxiaoxu2019/hass-addon-frp-client"
+url: "https://github.com/HASSAAS/FRP-Client"
 host_network: true
 startup: application
 boot: "auto"

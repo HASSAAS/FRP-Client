@@ -1,0 +1,43 @@
+configuration:
+  serverAddr:
+    name: FRP server address
+    description: Hostname or IP address of the FRP server.
+  serverPort:
+    name: FRP server port
+    description: Port configured as bindPort on the FRP server.
+  authToken:
+    name: Authentication token
+    description: Token shared with the FRP server.
+  webServerPort:
+    name: Client dashboard port
+    description: Local port used by the frpc dashboard.
+  webServerUser:
+    name: Client dashboard user
+    description: Username for the frpc dashboard.
+  webServerPassword:
+    name: Client dashboard password
+    description: Password for the frpc dashboard.
+  customDomain:
+    name: Public domain
+    description: Domain name used to access Home Assistant.
+  proxyName:
+    name: Proxy name
+    description: Unique name reported to the FRP server.
+  proxyType:
+    name: Proxy protocol
+    description: Use HTTP, or HTTPS with the https2http plugin.
+  localIP:
+    name: Local address
+    description: Local Home Assistant address.
+  localPort:
+    name: Local port
+    description: Local Home Assistant HTTP port.
+  certificateFile:
+    name: Certificate file
+    description: HTTPS certificate chain path inside the app.
+  privateKeyFile:
+    name: Private key file
+    description: HTTPS private key path inside the app.
+  hostHeaderRewrite:
+    name: Host header rewrite
+    description: Host header sent to the local Home Assistant service.

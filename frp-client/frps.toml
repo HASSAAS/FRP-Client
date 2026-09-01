@@ -1,5 +1,6 @@
 bindPort = 7000
 vhostHTTPPort = 8123
+vhostHTTPSPort = 443
 
 auth.method = "token"
 auth.token = "123456789"

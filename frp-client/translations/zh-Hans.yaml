@@ -1,0 +1,43 @@
+configuration:
+  serverAddr:
+    name: FRP 服务端地址
+    description: FRP 服务端的域名或 IP 地址。
+  serverPort:
+    name: FRP 服务端端口
+    description: FRP 服务端 bindPort 对应的端口。
+  authToken:
+    name: 认证令牌
+    description: 与 FRP 服务端一致的认证令牌。
+  webServerPort:
+    name: 客户端管理端口
+    description: frpc 管理页面使用的本地端口。
+  webServerUser:
+    name: 客户端管理账号
+    description: frpc 管理页面用户名。
+  webServerPassword:
+    name: 客户端管理密码
+    description: frpc 管理页面密码。
+  customDomain:
+    name: 公网域名
+    description: 从公网访问 Home Assistant 使用的域名。
+  proxyName:
+    name: 代理名称
+    description: 向 FRP 服务端注册的唯一代理名称。
+  proxyType:
+    name: 代理协议
+    description: 选择 HTTP，或使用 https2http 插件的 HTTPS。
+  localIP:
+    name: 本地地址
+    description: 本机 Home Assistant 地址。
+  localPort:
+    name: 本地端口
+    description: 本机 Home Assistant HTTP 端口。
+  certificateFile:
+    name: 证书文件
+    description: 插件容器内的 HTTPS 证书链路径。
+  privateKeyFile:
+    name: 私钥文件
+    description: 插件容器内的 HTTPS 私钥路径。
+  hostHeaderRewrite:
+    name: Host 请求头
+    description: 转发给本地 Home Assistant 的 Host 请求头。

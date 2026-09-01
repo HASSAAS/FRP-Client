@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.0
+
+- Add selectable `http` and `https` proxy modes.
+- Add FRP `https2http` support for exposing local Home Assistant HTTP over HTTPS.
+- Mount Home Assistant's `/ssl` directory read-only for certificate access.
+- Add configurable local address, local port, certificate, private key, and host header values.
+- Validate that HTTPS certificate and private key files exist before starting FRP.
+- Update the repository links and FRP client/server examples.
+
 ## 2.0.0
 
 - Upgrade FRP client from 0.53.0 to 0.71.0.

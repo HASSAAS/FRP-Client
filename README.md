@@ -1,10 +1,12 @@
-[![Version](https://img.shields.io/badge/version-v2.0.0-blue.svg)](https://github.com/huxiaoxu2019/hass-addon-frp-client/tree/v2.0.0)
+[![Version](https://img.shields.io/badge/version-v2.1.0-blue.svg)](https://github.com/HASSAAS/FRP-Client/tree/v2.1.0)
 [![FRP](https://img.shields.io/badge/FRP-v0.71.0-orange.svg)](https://github.com/fatedier/frp/releases/tag/v0.71.0)
 
 # Hass Addon FRP Client
 Home Assistant Community Add-on: FRP Client
 
-You can leverage this add-on to achieve remote access to local Home Assistant OS by port forwarding.
+You can use this add-on to expose Home Assistant through an FRP server with
+either HTTP or HTTPS. HTTPS mode terminates TLS in the FRP client and forwards
+requests to the local Home Assistant HTTP service.
 
 ## Bundled dependencies
 
@@ -25,7 +27,7 @@ guaranteed for FRP `0.71.x`.
 - Click Repositories (top right)
 <img width="600" src="https://github.com/huxiaoxu2019/hass-addon-frp-client/assets/5491423/699fac45-2b53-4213-811e-5fd0c4362b3b">
 
-- Add the current repository `https://github.com/huxiaoxu2019/hass-addon-frp-client/`
+- Add the current repository `https://github.com/HASSAAS/FRP-Client`
 <img width="600" src="https://github.com/huxiaoxu2019/hass-addon-frp-client/assets/5491423/91e886d5-dc3b-40a3-951a-9295687cf3f7">
 
 - Wait and refresh the Add-on Store page, then you can see one new add-on `Frp Client`, click it and install
@@ -50,6 +52,56 @@ would trust forwarded headers from every address.
 <img width="600"  src="https://github.com/huxiaoxu2019/hass-addon-frp-client/assets/5491423/47c4e863-1481-486a-9acb-41019c388fde">
 <br />
 
+## Client configuration
+
+The Home Assistant app configuration supports the following values:
+
+```yaml
+serverAddr: "frps.example.com"
+serverPort: 7000
+authToken: "replace-with-a-strong-token"
+webServerPort: 7500
+webServerUser: "admin"
+webServerPassword: "replace-with-a-strong-password"
+customDomain: "ha.example.com"
+proxyName: "homeassistant"
+proxyType: "http"
+localIP: "127.0.0.1"
+localPort: 8123
+certificateFile: "/ssl/fullchain.pem"
+privateKeyFile: "/ssl/privkey.pem"
+hostHeaderRewrite: "127.0.0.1"
+```
+
+Use `proxyType: "http"` for normal FRP HTTP virtual-host forwarding. The
+certificate options are ignored in HTTP mode.
+
+## HTTPS mode
+
+HTTPS mode uses FRP's `https2http` plugin. It accepts HTTPS for
+`customDomain`, terminates TLS with the configured certificate, and forwards
+plain HTTP to `localIP:localPort`.
+
+1. Point the DNS record for `customDomain` to the public FRP server.
+2. Configure the FRP server and open TCP port 443:
+
+   ```toml
+   bindPort = 7000
+   vhostHTTPPort = 8123
+   vhostHTTPSPort = 443
+   ```
+
+3. Put a certificate that covers `customDomain` in Home Assistant's `/ssl`
+   directory. The usual paths are `/ssl/fullchain.pem` and
+   `/ssl/privkey.pem`.
+4. Change the app configuration to `proxyType: "https"`, verify the
+   certificate paths, save, and restart the app.
+5. Open `https://ha.example.com`.
+
+The existing `transport.tls.enable = true` setting encrypts the connection
+between `frpc` and `frps`; HTTPS mode additionally encrypts the browser-facing
+connection.
+
 _Notes for Chinese Users: If the above steps fail, please try again as GitHub resource access may be unstable. If the issue persists, you can check the specific logs for troubleshooting by using the command `ha su logs`._
 
 ## Usage Tutorial
@@ -72,6 +124,8 @@ If you encounter any bugs or have ideas for new features, please open an issue o
 Please note that this project follows [Home Assistant's Code of Conduct](https://www.home-assistant.io/code_of_conduct/). Be respectful and considerate in all interactions.
 
 ## Author
-Xiaoxu Hu admin@ihuxu.com
+Original author: Xiaoxu Hu admin@ihuxu.com
+
+Repository maintainer: HASSAAS 17paixie@gmail.com
 
 Special thanks to: [@steplov](https://github.com/steplov) for the setup script

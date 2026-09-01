@@ -1,6 +1,6 @@
 FROM ghcr.io/home-assistant/base:3.24
 
-ARG BUILD_VERSION="2.0.0"
+ARG BUILD_VERSION="2.1.0"
 ARG BUILD_ARCH
 ARG FRP_VERSION="0.71.0"
 ARG FRP_SHA256_AMD64="84f27e39f11169f7adcef8e8b70c9329de17747b1f14dad9fb95eef5682ea716"
@@ -12,7 +12,7 @@ LABEL \
     io.hass.arch="${BUILD_ARCH}" \
     org.opencontainers.image.title="Home Assistant FRP Client" \
     org.opencontainers.image.description="FRP client app for Home Assistant" \
-    org.opencontainers.image.source="https://github.com/huxiaoxu2019/hass-addon-frp-client" \
+    org.opencontainers.image.source="https://github.com/HASSAAS/FRP-Client" \
     org.opencontainers.image.version="${BUILD_VERSION}"
 
 COPY bootstrap.sh /

@@ -1,6 +1,6 @@
 name: "FRP Client"
-description: "You can use this tool to achieve remote access to local Home Assistant OS by port forwarding"
-version: "2.0.0"
+description: "Expose Home Assistant through FRP with HTTP or HTTPS"
+version: "2.1.0"
 slug: "frp_client"
 url: "https://github.com/HASSAAS/FRP-Client"
 host_network: true
@@ -10,6 +10,8 @@ init: false
 map:
   - type: share
     read_only: false
+  - type: ssl
+    read_only: true
 privileged:
   - NET_ADMIN
 devices:
@@ -28,6 +30,12 @@ options:
   webServerPassword: null
   customDomain: null
   proxyName: "homeassistant"
+  proxyType: "http"
+  localIP: "127.0.0.1"
+  localPort: 8123
+  certificateFile: "/ssl/fullchain.pem"
+  privateKeyFile: "/ssl/privkey.pem"
+  hostHeaderRewrite: "127.0.0.1"
 schema:
   serverAddr: str
   serverPort: port
@@ -37,3 +45,9 @@ schema:
   webServerPassword: password
   customDomain: str
   proxyName: str
+  proxyType: list(http|https)
+  localIP: str
+  localPort: port
+  certificateFile: str
+  privateKeyFile: str
+  hostHeaderRewrite: str

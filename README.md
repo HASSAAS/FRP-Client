@@ -37,13 +37,8 @@ guaranteed for FRP `0.71.x`.
 <br />
 <img width="600" src="https://github.com/huxiaoxu2019/hass-addon-frp-client/assets/5491423/bee156da-282a-4831-9803-8e45f4331c2c">
 
-- Add the configuration shown below to `configuration.yaml` with the File Editor app
-```
-http:
-  use_x_forwarded_for: true
-  trusted_proxies:
-    - 127.0.0.1
-```
+
+``
 
 This app connects to Home Assistant through the host loopback interface, so
 only `127.0.0.1` needs to be trusted. Do not use `0.0.0.0/0`, because that

@@ -57,20 +57,21 @@ would trust forwarded headers from every address.
 The Home Assistant app configuration supports the following values:
 
 ```yaml
-serverAddr: "frps.example.com"
+serverAddr: XXXXXXXXX.com   FRP 服务器ip或域名
 serverPort: 7000
-authToken: "replace-with-a-strong-token"
+authToken: '5989599'   FRP 登陆密码
 webServerPort: 7500
-webServerUser: "admin"
-webServerPassword: "replace-with-a-strong-password"
-customDomain: "ha.example.com"
-proxyName: "homeassistant"
-proxyType: "http"
-localIP: "127.0.0.1"
-localPort: 8123
-certificateFile: "/ssl/fullchain.pem"
-privateKeyFile: "/ssl/privkey.pem"
-hostHeaderRewrite: "127.0.0.1"
+webServerUser: xxxx     FRP 服务端管理密码
+webServerPassword: XXXXXX   FRP 服务端管理密码
+customDomain: xxxx.xxxxx.com  FRP服务器分配域名
+proxyName: homeassistant88    不重复名称
+proxyType: https
+localIP: 127.0.0.1
+localPort: 80
+certificateFile: /ssl/fullchain.pem   config目录同级 ssl目录
+privateKeyFile: /ssl/privkey.pem      config目录同级 ssl目录
+hostHeaderRewrite: xxxx.xxxxx.com  FRP服务器分配域名
+
 ```
 
 Use `proxyType: "http"` for normal FRP HTTP virtual-host forwarding. The

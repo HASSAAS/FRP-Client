@@ -57,14 +57,14 @@ would trust forwarded headers from every address.
 The Home Assistant app configuration supports the following values:
 
 ```yaml
-serverAddr: XXXXXXXXX.com   FRP 服务器ip或域名
-serverPort: 7000
-authToken: '5989599'   FRP 登陆密码
-webServerPort: 7500
-webServerUser: xxxx     FRP 服务端管理密码
-webServerPassword: XXXXXX   FRP 服务端管理密码
-customDomain: xxxx.xxxxx.com  FRP服务器分配域名
-proxyName: homeassistant88    不重复名称
+serverAddr: XXXXXXXXX.com  # FRP 服务器ip或域名
+serverPort: 7000   #FRP服务端口
+authToken: 'xxxxx'   #FRP 登陆密码
+webServerPort: 7500   #客户端口
+webServerUser: xxxx     #FRP 服务端管理密码
+webServerPassword: XXXXXX   #FRP 服务端管理密码
+customDomain: xxxx.xxxxx.com  #FRP服务器分配域名
+proxyName: homeassistant88    #不重复名称
 proxyType: https
 localIP: 127.0.0.1
 localPort: 80
